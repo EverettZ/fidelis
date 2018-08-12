@@ -1,0 +1,5 @@
+:host /deep/ {
+    font-family: "DIN Next", "Helvetica Neue", "Helvetica", "Roboto", "Arial", "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+    font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+    line-height: calc(1.8em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)));
+}

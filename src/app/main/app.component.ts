@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IAlertsFilterType } from './models/alerts-filter-type';
 
 @Component({
   selector: 'fidelisui-root',
@@ -6,5 +7,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'fidelis';
 }

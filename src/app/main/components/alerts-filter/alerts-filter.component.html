@@ -1,0 +1,9 @@
+<div class="row justify-content-between align-items-center">
+    <div *ngIf="filters.length" class="col-auto text-start">
+        <p class="d-inline-block">Filters &nbsp;&nbsp;</p>
+        <span *ngFor="let filter of filters" class="badge badge-pill badge-primary">{{filter.type}} = {{filter.value}}</span>&nbsp;&nbsp;
+    </div>
+    <div *ngIf="filters.length" class="col">
+        <button class="btn btn-primary" (click)="reset()"></button>
+    </div>
+</div>

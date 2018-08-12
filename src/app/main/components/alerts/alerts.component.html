@@ -1,0 +1,18 @@
+<div *ngIf="(alerts$ | async) as alerts; else loading;">
+  <div *ngIf="alerts.length; else empty;">
+    <div *ngFor="let alertGroup of alerts | alertsFilter:filters;">
+      <!-- {{alert.AlertId}}
+      {{alert.AlertTime | date:'fullDate'}}
+      {{alert.Severity | uppercase}}
+      {{alert.ClientIP}}
+      {{alert.ServerIP}}
+      {{alert.Protocol}}
+      {{alert.ClientCountry}} -->
+      <div class="row">
+        <div class="col-12">
+          <fidelisui-alert-box [alertGroup]="alertGroup"></fidelisui-alert-box>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
