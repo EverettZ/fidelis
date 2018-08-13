@@ -13,11 +13,10 @@ cache:
     - node_modules
 
 install:
-  - npm install -g yarn
+  - npm install -g @angular/cli
 
 script:
-  - yarn lint
-  - yarn build --prod --base-href https://everettz.github.io/fidelis/
+  - ng build --prod --base-href https://everettz.github.io/fidelis/
 deploy:
   provider: pages
   skip_cleanup: true
