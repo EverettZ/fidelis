@@ -10,7 +10,6 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './services/mock/in-memory-data.service.ts/in-memory-data.service';
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { AlertsFilterComponent } from './components/alerts-filter/alerts-filter.component';
-import { AlertsContainerComponent } from './components/alerts-container/alerts-container.component';
 import { AlertBoxComponent } from './components/alert-box/alert-box.component';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { AlertBoxComponent } from './components/alert-box/alert-box.component';
     AlertsFilterPipe,
     AlertsComponent,
     AlertsFilterComponent,
-    AlertsContainerComponent,
     AlertBoxComponent
   ],
   imports: [

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, EventEmitter, Input } from '@angular/core';
 import { AlertsService } from '../../services/alerts/alerts.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { IAlert } from '../../models/alert';
 import { tap } from 'rxjs/operators';
 import { IAlertsFilterType } from '../../models/alerts-filter-type';
@@ -8,64 +8,61 @@ import { AlertsFilterTypesEnum } from '../../models/alerts-filter-types-enum';
 import { ActivatedRoute, Router, NavigationStart, NavigationEnd, ParamMap, Params } from '../../../../../node_modules/@angular/router';
 import { HttpParams } from '../../../../../node_modules/@angular/common/http';
 
-@Component({
+@Component( {
   selector: 'fidelisui-alerts',
   templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.scss']
-})
+  styleUrls: [ './alerts.component.scss' ]
+} )
 export class AlertsComponent implements OnInit, OnDestroy {
 
   alerts$: Observable<IAlert[]>;
   _alerts$: Subject<IAlert[]> = new Subject();
 
-  filters: any;
+  filters: Params;
+  routeWatchSub: Subscription;
+  getAlertsSub: Subscription;
 
-  constructor(private _alert: AlertsService, private activatedRoute: ActivatedRoute, private router: Router) {
-
-
-    this.alerts$ = this._alerts$
-      .pipe(
-        tap(ok => {
-          console.log('passing aalerts through', ok);
-        })
-      );
-
-
-  }
+  constructor ( private _alert: AlertsService, private activatedRoute: ActivatedRoute, private router: Router ) { }
 
   ngOnInit() {
 
+    this.alerts$ = this._alerts$;
+
     this.getAlerts();
 
+    this.routeWatchSub = this.activatedRoute.queryParams
+      .subscribe( queries => {
+
+        if ( Object.keys( queries ).length > 0 ) {
+          this.filters = queries;
+        } else {
+          this.filters = undefined;
+        }
+
+      } );
   }
 
   ngOnDestroy() {
 
-    this.alerts$ = undefined;
+    if ( this.routeWatchSub && !this.routeWatchSub.closed ) {
+      this.routeWatchSub.unsubscribe();
+    }
+
+    if ( this.getAlertsSub && !this.getAlertsSub.closed ) {
+      this.getAlertsSub.unsubscribe();
+    }
 
   }
 
-  getAlerts(): void {
+  getAlerts() {
 
-    this._alert.getAlerts()
-      .subscribe(alerts => {
+    this.getAlertsSub = this._alert.getAlerts()
+      .subscribe( alerts => {
 
-        this._alerts$.next(alerts);
+        this._alerts$.next( alerts );
 
-        this.activatedRoute.queryParams
-          .subscribe(queries => {
-            console.log('ALERTS COMPONENT queries', queries);
-            this.buildFiltersFromParams(queries);
 
-          });
-
-      });
-
-  }
-
-  buildFiltersFromParams(query: Params) {
-
-    this.filters = query;
+      } );
 
   }
 

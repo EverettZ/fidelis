@@ -1,9 +1,21 @@
-<div class="row justify-content-between align-items-center">
-    <div *ngIf="filters.length" class="col-auto text-start">
-        <p class="d-inline-block">Filters &nbsp;&nbsp;</p>
-        <span *ngFor="let filter of filters" class="badge badge-pill badge-primary">{{filter.type}} = {{filter.value}}</span>&nbsp;&nbsp;
+<div class="p-2 pt-3 pb-0 row justify-content-between">
+    <div class="text-start col">
+        <h3>Fidelis</h3>
     </div>
-    <div *ngIf="filters.length" class="col">
-        <button class="btn btn-primary" (click)="reset()"></button>
+    <div class="col text-right">
+        <h5 class="mb-0"><em>Count</em> {{_alerts.getNumAlerts()}}</h5>
     </div>
+</div>
+<div class="p-2 row align-items-center justify-content-between">
+    <div *ngIf="!filters.length; else filtering" class="col-9">
+        <h5>Click one of the fields below to filter the content</h5>
+    </div>
+    <ng-template #filtering>
+        <div class="col-8 text-start">
+            <span *ngFor="let filter of filters" class="mr-1 badge badge-pill badge-primary">{{filter.type}} = {{filter.value}}</span>&nbsp;&nbsp;
+        </div>
+        <div class="col-auto ml-auto">
+            <button type="button" class="btn btn-sm btn-outline-primary" (click)="reset()">Reset</button>
+        </div>
+    </ng-template>
 </div>

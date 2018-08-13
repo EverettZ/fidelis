@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AlertsContainerComponent } from './components/alerts-container/alerts-container.component';
+import { AlertsComponent } from './components/alerts/alerts.component';
 
 const routes: Routes = [
   {
     path: 'alerts',
-    component: AlertsContainerComponent
+    component: AlertsComponent
   },
   {
     path: '',

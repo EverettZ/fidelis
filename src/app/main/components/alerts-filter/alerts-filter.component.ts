@@ -1,39 +1,51 @@
-import { Component, Input, EventEmitter, OnInit } from '@angular/core';
-import { IAlertsFilterType } from '../../models/alerts-filter-type';
+import { AlertsService } from './../../services/alerts/alerts.service';
+import { IAlertsFilterType } from './../../models/alerts-filter-type';
+import { Component, Input, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { AlertsFilterTypesEnum } from '../../models/alerts-filter-types-enum';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { AlertSeverityTypesEnum, AlertSeverityTypes } from '../../models/alert-severity-types-enum';
+import { Subscription } from '../../../../../node_modules/rxjs';
 
-@Component({
+@Component( {
   selector: 'fidelisui-alerts-filter',
   templateUrl: './alerts-filter.component.html',
-  styleUrls: ['./alerts-filter.component.scss']
-})
-export class AlertsFilterComponent implements OnInit {
+  styleUrls: [ './alerts-filter.component.scss' ]
+} )
+export class AlertsFilterComponent implements OnInit, OnDestroy {
 
-  @Input('filters') filters = [];
+  filters: IAlertsFilterType[] = [];
+  routeWatchSub: Subscription;
+  numAlerts = 0;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor ( private router: Router, private activatedRoute: ActivatedRoute,
+    private _alerts: AlertsService ) {
 
   }
 
   ngOnInit() {
-    console.log('on inite?');
     const params = {};
 
-    this.router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd) {
-        console.log(val);
-        this.activatedRoute.queryParams
-          .subscribe(queries => {
-            console.log(queries);
-          });
-      }
-    });
+    this.routeWatchSub = this.activatedRoute.queryParams
+      .subscribe( queries => {
+
+        this.filters = Object.keys( queries )
+          .map( key => {
+            return { type: key, value: [ queries[ key ] ] } as IAlertsFilterType;
+          } );
+
+      } );
+
+  }
+
+  ngOnDestroy() {
+
+    if ( this.routeWatchSub && !this.routeWatchSub.closed ) {
+      this.routeWatchSub.unsubscribe();
+    }
+
   }
 
   reset() {
-    this.router.navigate(['alerts']);
+    this.router.navigate( [ 'alerts' ] );
   }
 
 
