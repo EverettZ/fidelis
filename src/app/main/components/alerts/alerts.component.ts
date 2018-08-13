@@ -2,11 +2,7 @@ import { Component, OnInit, OnDestroy, EventEmitter, Input } from '@angular/core
 import { AlertsService } from '../../services/alerts/alerts.service';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { IAlert } from '../../models/alert';
-import { tap } from 'rxjs/operators';
-import { IAlertsFilterType } from '../../models/alerts-filter-type';
-import { AlertsFilterTypesEnum } from '../../models/alerts-filter-types-enum';
-import { ActivatedRoute, Router, NavigationStart, NavigationEnd, ParamMap, Params } from '../../../../../node_modules/@angular/router';
-import { HttpParams } from '../../../../../node_modules/@angular/common/http';
+import { ActivatedRoute, Router, Params } from '../../../../../node_modules/@angular/router';
 
 @Component( {
   selector: 'fidelisui-alerts',

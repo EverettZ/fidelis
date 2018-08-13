@@ -1,8 +1,7 @@
 import { AlertsService } from './../../services/alerts/alerts.service';
 import { IAlertsFilterType } from './../../models/alerts-filter-type';
-import { Component, Input, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { AlertsFilterTypesEnum } from '../../models/alerts-filter-types-enum';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from '../../../../../node_modules/rxjs';
 
 @Component( {
@@ -14,7 +13,9 @@ export class AlertsFilterComponent implements OnInit, OnDestroy {
 
   filters: IAlertsFilterType[] = [];
   routeWatchSub: Subscription;
-  numAlerts = 0;
+  get numAlerts() {
+    return this._alerts.getNumAlerts();
+  }
 
   constructor ( private router: Router, private activatedRoute: ActivatedRoute,
     private _alerts: AlertsService ) {

@@ -3,19 +3,19 @@
         <h3>Fidelis</h3>
     </div>
     <div class="col text-right">
-        <h5 class="mb-0"><em>Count</em> {{_alerts.getNumAlerts()}}</h5>
+        <h5 class="mb-0"><em>Count</em> {{numAlerts}}</h5>
     </div>
 </div>
-<div class="p-2 row align-items-center justify-content-between">
+<div class="p-2 row align-items-center justify-content-between nowrap">
     <div *ngIf="!filters.length; else filtering" class="col-9">
         <h5>Click one of the fields below to filter the content</h5>
     </div>
     <ng-template #filtering>
-        <div class="col-8 text-start">
-            <span *ngFor="let filter of filters" class="mr-1 badge badge-pill badge-primary">{{filter.type}} = {{filter.value}}</span>&nbsp;&nbsp;
+        <div class="col-sm-7 col-md-8 col-lg-10 text-start">
+            <span *ngFor="let filter of filters" class="mr-1 badge badge-pill badge-primary">{{filter.type}} = {{filter.value}}</span>
         </div>
-        <div class="col-auto ml-auto">
-            <button type="button" class="btn btn-sm btn-outline-primary" (click)="reset()">Reset</button>
+        <div class="col-sm-5 col-md-4 col-lg-2">
+            <button type="button" class="float-right btn btn-sm btn-outline-primary" (click)="reset()">Reset</button>
         </div>
     </ng-template>
 </div>
